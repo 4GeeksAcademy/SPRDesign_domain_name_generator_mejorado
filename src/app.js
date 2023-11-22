@@ -6,29 +6,20 @@ import "./assets/img/rigo-baby.jpg";
 import "./assets/img/4geeks.ico";
 
 window.onload = function() {
-  //write your code here
-
   function domainGenerate(pronouns, adjs, nouns, extensions) {
-    let myArray = [];
+    let domains = [];
 
-    for (let i = 0; i < pronouns.length; i++) {
-      for (let j = 0; j < adjs.length; j++) {
-        for (let k = 0; k < nouns.length; k++) {
-          for (let l = 0; l < extensions.length; l++) {
-            let resultPronoun = pronouns[i];
-            let resultAdj = adjs[j];
-            let resultNoun = nouns[k];
-            let resultExtension = extensions[l];
+    pronouns.forEach(pronoun =>
+      adjs.forEach(adj =>
+        nouns.forEach(noun =>
+          extensions.forEach(extension =>
+            domains.push(`${pronoun}${adj}${noun}${extension}`)
+          )
+        )
+      )
+    );
 
-            let domain =
-              resultPronoun + resultAdj + resultNoun + resultExtension;
-
-            myArray.push(domain);
-          }
-        }
-      }
-    }
-    return myArray;
+    return domains;
   }
 
   let pronouns = ["the", "our"];
@@ -39,9 +30,12 @@ window.onload = function() {
   let result = domainGenerate(pronouns, adjs, nouns, extensions);
   let olElement = document.querySelector("#domainGenerator ol");
 
+  let uL = "";
   result.forEach(function(domain) {
-    let liElement = document.createElement("li");
-    liElement.textContent = domain;
-    olElement.appendChild(liElement);
+    let miLi = "<li>" + domain + "</li>";
+    uL += miLi;
   });
+
+  console.log(uL);
+  olElement.innerHTML = uL;
 };
